@@ -161,7 +161,7 @@ const translations = {
     'nav-quote': 'Pedir Cotação',
 
     // Hero Section
-    'hero-title': 'Aluguer de Inertes & Logística de Entrega',
+    'hero-title': 'Inertes & Logística',
     'hero-subtitle': 'Areia, brita, tout-venant e mais — <strong>com transporte</strong> e frota própria. Qualidade, prazos e segurança para a sua obra.',
     'hero-portfolio': 'Ver Portfólio',
     'stat-projects': 'Projetos',
@@ -217,7 +217,7 @@ const translations = {
     'nav-quote': 'Get Quote',
 
     // Hero Section
-    'hero-title': 'Aggregates Rental & Delivery Logistics',
+    'hero-title': 'Aggregates & Logistics',
     'hero-subtitle': 'Sand, gravel, all-in aggregate and more — <strong>with transport</strong> and own fleet. Quality, deadlines and safety for your construction site.',
     'hero-portfolio': 'View Portfolio',
     'stat-projects': 'Projects',
