@@ -383,14 +383,14 @@ document.addEventListener('DOMContentLoaded', initTheme);
 // ===== Hero Image Blocks Animation =====
 function initImageBlocksAnimation() {
   const imageBlocks = document.querySelectorAll('.image-block');
-  if (imageBlocks.length < 4) {
-    console.log('Need at least 4 image blocks for animation');
+  if (imageBlocks.length < 3) {
+    console.log('Need at least 3 image blocks for animation');
     return;
   }
 
-  const positions = ['pos-1', 'pos-2', 'pos-3', 'pos-4', 'pos-hidden'];
+  const positions = ['pos-1', 'pos-2', 'pos-3', 'pos-hidden'];
   let currentIndex = 0;
-  const visibleCount = 4; // Show 4 images at a time
+  const visibleCount = 3; // Show 3 images at a time
 
   function updatePositions() {
     imageBlocks.forEach((block, index) => {
@@ -415,16 +415,18 @@ function initImageBlocksAnimation() {
     updatePositions();
   }
 
-  // Initialize first display
-  updatePositions();
+  // Initialize first display with staggered animation
+  setTimeout(() => {
+    updatePositions();
+  }, 500);
   
   // Add initial animation delay for smoother start
   setTimeout(() => {
-    // Start the animation cycle
-    setInterval(cycleImages, 2500);
-  }, 1000);
+    // Start the animation cycle - slower for better visual impact
+    setInterval(cycleImages, 3500);
+  }, 1500);
   
-  console.log('Image blocks animation initialized with', imageBlocks.length, 'images');
+  console.log('Professional hero animation initialized with', imageBlocks.length, 'images, showing', visibleCount, 'at a time');
 }
 
 // Initialize image blocks animation when DOM is ready
