@@ -339,7 +339,7 @@ function initTranslations() {
 document.addEventListener('DOMContentLoaded', initTranslations);
 
 // ===== Theme Toggle (Dark/Light Mode) =====
-let currentTheme = 'dark';
+let currentTheme = 'light';
 
 function toggleTheme() {
   currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -363,8 +363,8 @@ if (themeToggle) {
 
 // Initialize theme on page load
 function initTheme() {
-  // Load saved theme or default to dark
-  const savedTheme = localStorage.getItem('preferred-theme') || 'dark';
+  // Load saved theme or default to light
+  const savedTheme = localStorage.getItem('preferred-theme') || 'light';
   currentTheme = savedTheme;
 
   // Apply theme
