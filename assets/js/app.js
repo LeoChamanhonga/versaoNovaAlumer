@@ -380,53 +380,34 @@ function initTheme() {
 // Initialize theme on page load
 document.addEventListener('DOMContentLoaded', initTheme);
 
-// ===== Hero Image Blocks Animation =====
+// ===== Hero Image Crossfade Animation =====
 function initImageBlocksAnimation() {
   const imageBlocks = document.querySelectorAll('.image-block');
-  if (imageBlocks.length < 3) {
-    console.log('Need at least 3 image blocks for animation');
+  if (imageBlocks.length === 0) {
+    console.log('No image blocks found for animation');
     return;
   }
 
-  const positions = ['pos-1', 'pos-2', 'pos-3', 'pos-hidden'];
   let currentIndex = 0;
-  const visibleCount = 3; // Show 3 images at a time
 
-  function updatePositions() {
-    imageBlocks.forEach((block, index) => {
-      // Remove all position classes
-      positions.forEach(pos => block.classList.remove(pos));
-      
-      // Calculate position for this block
-      const relativeIndex = (index - currentIndex + imageBlocks.length) % imageBlocks.length;
-      
-      if (relativeIndex < visibleCount) {
-        // Visible positions
-        block.classList.add(positions[relativeIndex]);
-      } else {
-        // Hidden position
-        block.classList.add('pos-hidden');
-      }
-    });
-  }
-
-  function cycleImages() {
+  function showNextImage() {
+    // Remove active class from all images
+    imageBlocks.forEach(block => block.classList.remove('active'));
+    
+    // Add active class to current image
+    imageBlocks[currentIndex].classList.add('active');
+    
+    // Move to next image
     currentIndex = (currentIndex + 1) % imageBlocks.length;
-    updatePositions();
   }
 
-  // Initialize first display with staggered animation
-  setTimeout(() => {
-    updatePositions();
-  }, 500);
+  // Show first image immediately
+  showNextImage();
   
-  // Add initial animation delay for smoother start
-  setTimeout(() => {
-    // Start the animation cycle - slower for better visual impact
-    setInterval(cycleImages, 3500);
-  }, 1500);
+  // Start crossfade cycle
+  setInterval(showNextImage, 4000);
   
-  console.log('Professional hero animation initialized with', imageBlocks.length, 'images, showing', visibleCount, 'at a time');
+  console.log('Hero crossfade animation initialized with', imageBlocks.length, 'images');
 }
 
 // Initialize image blocks animation when DOM is ready
