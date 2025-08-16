@@ -383,39 +383,48 @@ document.addEventListener('DOMContentLoaded', initTheme);
 // ===== Hero Image Blocks Animation =====
 function initImageBlocksAnimation() {
   const imageBlocks = document.querySelectorAll('.image-block');
-  if (imageBlocks.length !== 5) {
-    console.log('Expected 5 image blocks, found:', imageBlocks.length);
+  if (imageBlocks.length < 4) {
+    console.log('Need at least 4 image blocks for animation');
     return;
   }
 
-  let currentPositions = [0, 1, 2, 3, 4]; // positions 1-5
-  const positions = ['moving-to-pos1', 'moving-to-pos2', 'moving-to-pos3', 'moving-to-pos4', 'moving-to-pos5'];
+  const positions = ['pos-1', 'pos-2', 'pos-3', 'pos-4', 'pos-hidden'];
+  let currentIndex = 0;
+  const visibleCount = 4; // Show 4 images at a time
 
-  function swapPositions() {
-    // Remove all position classes
-    imageBlocks.forEach(block => {
-      positions.forEach(pos => block.classList.remove(pos));
-    });
-
-    // Cycle positions: shift array to right [0,1,2,3,4] -> [4,0,1,2,3]
-    const lastPos = currentPositions.pop();
-    currentPositions.unshift(lastPos);
-
-    // Apply new position classes
+  function updatePositions() {
     imageBlocks.forEach((block, index) => {
-      const newPosition = currentPositions[index];
-      block.classList.add(positions[newPosition]);
+      // Remove all position classes
+      positions.forEach(pos => block.classList.remove(pos));
+      
+      // Calculate position for this block
+      const relativeIndex = (index - currentIndex + imageBlocks.length) % imageBlocks.length;
+      
+      if (relativeIndex < visibleCount) {
+        // Visible positions
+        block.classList.add(positions[relativeIndex]);
+      } else {
+        // Hidden position
+        block.classList.add('pos-hidden');
+      }
     });
   }
 
-  // Initialize initial positions
-  imageBlocks.forEach((block, index) => {
-    block.classList.add(positions[currentPositions[index]]);
-  });
+  function cycleImages() {
+    currentIndex = (currentIndex + 1) % imageBlocks.length;
+    updatePositions();
+  }
 
-  // Start the animation cycle
-  setInterval(swapPositions, 1000);
-  console.log('Image blocks animation initialized');
+  // Initialize first display
+  updatePositions();
+  
+  // Add initial animation delay for smoother start
+  setTimeout(() => {
+    // Start the animation cycle
+    setInterval(cycleImages, 2500);
+  }, 1000);
+  
+  console.log('Image blocks animation initialized with', imageBlocks.length, 'images');
 }
 
 // Initialize image blocks animation when DOM is ready
