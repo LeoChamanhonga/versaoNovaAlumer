@@ -14,7 +14,7 @@
   --text:#e6eaf2;
   --ring: rgba(227,27,35,.25);
   --card:#0f172a;
-  --border:#1f2a44;
+  --border:#1f2444;
   --shadow: 0 10px 24px rgba(2,12,27,.25), 0 2px 6px rgba(2,12,27,.2);
   --hero-bg: radial-gradient(60% 60% at 10% 10%, rgba(42,47,133,.18) 0%, rgba(42,47,133,0) 60%) , linear-gradient(180deg,#0b1220 0%, #0b1220 30%, #0d1527 100%);
   --section-alt-bg: linear-gradient(180deg, #0c1425 0%, #0b1220 100%);
@@ -326,7 +326,7 @@ img{max-width:100%;display:block;border-radius:12px}
     0 10px 30px rgba(0,0,0,0.2),
     0 0 0 1px rgba(255,255,255,0.1);
   backdrop-filter:blur(2px);
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,.08);
 }
 
 .image-block.active{
@@ -529,6 +529,9 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
     gap: 32px;
     text-align: center;
   }
+  .hero-copy{
+    text-align: center;
+  }
   .hero h1{
     font-size: clamp(28px, 6vw, 42px);
     margin-bottom: 20px;
@@ -600,7 +603,7 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
 @media (max-width: 768px){
   .container{width: min(1100px, 95%)}
   .section{padding: clamp(40px, 8vw, 70px) 0}
-  
+
   .hero{
     min-height: 60vh;
     padding: clamp(30px, 8vw, 50px) 0;
@@ -626,13 +629,13 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
     max-width: 280px;
     text-align: center;
   }
-  
+
   .floating-images{
     width: 260px;
     height: 300px;
     margin: 16px auto 0;
   }
-  
+
   .stats{
     gap: 12px;
     justify-content: center;
@@ -645,19 +648,19 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
   }
   .stat span{font-size: 28px}
   .stat small{font-size: 11px}
-  
+
   .cards{grid-template-columns: 1fr; gap: 16px}
   .card{padding: 16px}
-  
+
   .gallery-item{flex: 0 0 240px}
   .gallery-nav{width: 32px; height: 32px; font-size: 14px}
   .gallery-nav.prev{left: 6px}
   .gallery-nav.next{right: 6px}
-  
+
   .form{padding: 20px 16px}
   .field{margin-bottom: 16px}
   input, select, textarea{padding: 14px 12px; font-size: 16px}
-  
+
   .three-root{min-height: 320px}
   .three-sidebar{padding: 14px}
 }
@@ -665,7 +668,7 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
 /* Mobile Muito Pequeno */
 @media (max-width: 480px){
   .container{width: min(1100px, 92%)}
-  
+
   .hero{
     min-height: 70vh;
     padding: clamp(20px, 6vw, 40px) 0;
@@ -682,12 +685,12 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
     padding: 12px 20px;
     font-size: 15px;
   }
-  
+
   .floating-images{
     width: 220px;
     height: 260px;
   }
-  
+
   .stats{
     gap: 8px;
     flex-wrap: wrap;
@@ -699,13 +702,13 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
   }
   .stat span{font-size: 24px}
   .stat small{font-size: 10px}
-  
+
   .section-header h2{font-size: clamp(20px, 6vw, 28px)}
   .section-header p{font-size: 14px}
-  
+
   .gallery-item{flex: 0 0 200px}
   .gallery-nav{width: 28px; height: 28px; font-size: 12px}
-  
+
   .btn{
     padding: 12px 18px;
     font-size: 14px;
@@ -714,12 +717,12 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
     padding: 8px 14px;
     font-size: 13px;
   }
-  
+
   .menu ul{
     width: 260px;
     right: 2%;
   }
-  
+
   .footer-inner{
     flex-direction: column;
     gap: 12px;
@@ -730,7 +733,7 @@ input:focus, select:focus, textarea:focus{border-color: var(--primary); box-shad
     justify-content: center;
     gap: 8px;
   }
-  
+
   .whatsapp{
     width: 48px;
     height: 48px;
