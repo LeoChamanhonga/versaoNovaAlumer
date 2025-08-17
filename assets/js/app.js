@@ -156,6 +156,7 @@ const translations = {
     'nav-services': 'Serviços',
     'nav-fleet': 'Frota',
     'nav-portfolio': 'Portfólio',
+    'nav-news': 'Notícias',
     'nav-about': 'Sobre',
     'nav-contact': 'Contacto',
     'nav-quote': 'Pedir Cotação',
@@ -205,13 +206,20 @@ const translations = {
     'material-gravel': 'Brita 19mm',
     'material-allcoming': 'Tout-venant',
     'material-stone': 'Cascalho',
-    'material-other': 'Outro'
+    'material-other': 'Outro',
+
+    // News Section
+    'news-title': 'Notícias & Atualizações',
+    'news-subtitle': 'Fique a par das últimas novidades da Alumer e do setor da construção.',
+    'news-load-more': 'Ver Mais Notícias',
+    'news-read-more': 'Ler Mais'
   },
   en: {
     // Navigation
     'nav-services': 'Services',
     'nav-fleet': 'Fleet',
     'nav-portfolio': 'Portfolio',
+    'nav-news': 'News',
     'nav-about': 'About',
     'nav-contact': 'Contact',
     'nav-quote': 'Get Quote',
@@ -261,7 +269,13 @@ const translations = {
     'material-gravel': 'Gravel 19mm',
     'material-allcoming': 'All-in aggregate',
     'material-stone': 'Crushed stone',
-    'material-other': 'Other'
+    'material-other': 'Other',
+
+    // News Section
+    'news-title': 'News & Updates',
+    'news-subtitle': 'Stay up to date with the latest news from Alumer and the construction sector.',
+    'news-load-more': 'Load More News',
+    'news-read-more': 'Read More'
   }
 };
 
@@ -416,6 +430,207 @@ if (document.readyState === 'loading') {
 } else {
   initImageBlocksAnimation();
 }
+
+// ===== News System =====
+const newsData = [
+  {
+    id: 1,
+    title: 'Expansão da Frota Alumer',
+    summary: 'Adquirimos 5 novos camiões basculantes e 3 escavadoras para melhor servir os nossos clientes.',
+    content: 'A Alumer continua a crescer e investir em equipamentos de última geração. Esta expansão permitirá reduzir tempos de espera e aumentar a capacidade de entrega simultânea em múltiplos projetos.',
+    date: '2025-01-15',
+    category: 'Empresa',
+    image: 'https://images.unsplash.com/photo-1527708670558-09d23f6c715e?q=80&w=800&auto=format&fit=crop',
+    featured: true
+  },
+  {
+    id: 2,
+    title: 'Novo Contrato de Fornecimento',
+    summary: 'Assinado contrato para fornecimento de inertes para projeto de infraestrutura em Maputo.',
+    content: 'Projeto inclui fornecimento de 15.000m³ de materiais diversos ao longo de 8 meses, consolidando nossa posição no mercado de grandes obras.',
+    date: '2025-01-10',
+    category: 'Projetos',
+    image: 'https://images.unsplash.com/photo-1504311169734-973f2b4d4f67?q=80&w=800&auto=format&fit=crop',
+    featured: false
+  },
+  {
+    id: 3,
+    title: 'Certificação de Qualidade ISO',
+    summary: 'Alumer obtém certificação ISO 9001:2015 para gestão de qualidade em fornecimento de inertes.',
+    content: 'Esta certificação reforça nosso compromisso com a excelência e padronização de processos, garantindo ainda maior confiabilidade aos nossos parceiros.',
+    date: '2025-01-05',
+    category: 'Qualidade',
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop',
+    featured: false
+  },
+  {
+    id: 4,
+    title: 'Investimento em Sustentabilidade',
+    summary: 'Implementação de práticas ambientais sustentáveis em todas as operações da empresa.',
+    content: 'Novo programa inclui reciclagem de águas, controlo de emissões e recuperação ambiental das áreas de extração.',
+    date: '2024-12-28',
+    category: 'Sustentabilidade',
+    image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=800&auto=format&fit=crop',
+    featured: false
+  },
+  {
+    id: 5,
+    title: 'Parceria Estratégica Regional',
+    summary: 'Nova parceria com construtoras da região para fornecimento exclusivo de materiais.',
+    content: 'Acordo de exclusividade fortalece nossa presença no mercado regional e garante fornecimento estável para projetos de médio e longo prazo.',
+    date: '2024-12-20',
+    category: 'Parcerias',
+    image: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=800&auto=format&fit=crop',
+    featured: false
+  },
+  {
+    id: 6,
+    title: 'Modernização do Laboratório',
+    summary: 'Investimento em novos equipamentos de análise para controlo de qualidade dos materiais.',
+    content: 'Laboratório agora conta com tecnologia de ponta para análises granulométricas, resistência e composição química, garantindo conformidade total com normas internacionais.',
+    date: '2024-12-15',
+    category: 'Tecnologia',
+    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop',
+    featured: false
+  }
+];
+
+let currentNewsPage = 0;
+const newsPerPage = 3;
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return currentLanguage === 'pt' 
+    ? date.toLocaleDateString('pt', options)
+    : date.toLocaleDateString('en', options);
+}
+
+function createNewsCard(news) {
+  const isRead = localStorage.getItem(`news-read-${news.id}`) === 'true';
+  
+  return `
+    <article class="news-card ${news.featured ? 'featured' : ''} ${isRead ? 'read' : ''}" data-news-id="${news.id}">
+      <div class="news-image">
+        <img src="${news.image}" alt="${news.title}" loading="lazy">
+        <div class="news-category">${news.category}</div>
+        ${news.featured ? '<div class="news-badge">Destaque</div>' : ''}
+      </div>
+      <div class="news-content">
+        <time class="news-date">${formatDate(news.date)}</time>
+        <h3 class="news-title">${news.title}</h3>
+        <p class="news-summary">${news.summary}</p>
+        <button class="news-read-more" data-translate="news-read-more">Ler Mais</button>
+      </div>
+    </article>
+  `;
+}
+
+function loadNews() {
+  const container = document.getElementById('newsContainer');
+  const loadMoreBtn = document.getElementById('loadMoreNews');
+  
+  if (!container) return;
+
+  const startIndex = currentNewsPage * newsPerPage;
+  const endIndex = startIndex + newsPerPage;
+  const newsToShow = newsData.slice(startIndex, endIndex);
+
+  if (currentNewsPage === 0) {
+    container.innerHTML = '';
+  }
+
+  newsToShow.forEach(news => {
+    container.innerHTML += createNewsCard(news);
+  });
+
+  currentNewsPage++;
+
+  // Hide load more button if no more news
+  if (endIndex >= newsData.length) {
+    loadMoreBtn.style.display = 'none';
+  }
+
+  // Add click events to read more buttons
+  container.querySelectorAll('.news-read-more').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.target.closest('.news-card');
+      const newsId = card.getAttribute('data-news-id');
+      const news = newsData.find(n => n.id == newsId);
+      
+      if (news) {
+        showNewsModal(news);
+        markAsRead(newsId);
+        card.classList.add('read');
+      }
+    });
+  });
+}
+
+function showNewsModal(news) {
+  // Create modal if it doesn't exist
+  let modal = document.getElementById('newsModal');
+  if (!modal) {
+    modal = document.createElement('dialog');
+    modal.id = 'newsModal';
+    modal.className = 'news-modal';
+    document.body.appendChild(modal);
+  }
+
+  modal.innerHTML = `
+    <div class="news-modal-content">
+      <button class="news-modal-close" aria-label="Fechar">×</button>
+      <div class="news-modal-header">
+        <img src="${news.image}" alt="${news.title}">
+        <div class="news-modal-meta">
+          <span class="news-category">${news.category}</span>
+          <time class="news-date">${formatDate(news.date)}</time>
+        </div>
+      </div>
+      <div class="news-modal-body">
+        <h2>${news.title}</h2>
+        <p class="news-lead">${news.summary}</p>
+        <div class="news-content">${news.content}</div>
+      </div>
+    </div>
+  `;
+
+  // Show modal
+  if (typeof modal.showModal === 'function') {
+    modal.showModal();
+  } else {
+    modal.setAttribute('open', '');
+  }
+
+  // Close modal events
+  const closeBtn = modal.querySelector('.news-modal-close');
+  closeBtn.addEventListener('click', () => {
+    modal.close ? modal.close() : modal.removeAttribute('open');
+  });
+
+  modal.addEventListener('click', (e) => {
+    const rect = modal.querySelector('.news-modal-content').getBoundingClientRect();
+    const inDialog = e.clientX >= rect.left && e.clientX <= rect.right && 
+                    e.clientY >= rect.top && e.clientY <= rect.bottom;
+    if (!inDialog) {
+      modal.close ? modal.close() : modal.removeAttribute('open');
+    }
+  });
+}
+
+function markAsRead(newsId) {
+  localStorage.setItem(`news-read-${newsId}`, 'true');
+}
+
+// Initialize news system
+document.addEventListener('DOMContentLoaded', () => {
+  loadNews();
+  
+  const loadMoreBtn = document.getElementById('loadMoreNews');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', loadNews);
+  }
+});
 
 // ===== 3D Equipamentos (Three.js) =====
 (function(){
