@@ -3,7 +3,7 @@ const menuToggle = document.getElementById('menuToggle');
 const menuList = document.getElementById('menuList');
 if (menuToggle && menuList){
   menuToggle.addEventListener('click', () => {
-    const open = menuList.classList.toggle('open');
+    const open = menuList.toggle('open');
     menuToggle.setAttribute('aria-expanded', String(open));
   });
   menuList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
@@ -393,20 +393,20 @@ function initImageBlocksAnimation() {
   function showNextImage() {
     // Remove active class from all images
     imageBlocks.forEach(block => block.classList.remove('active'));
-    
+
     // Add active class to current image
     imageBlocks[currentIndex].classList.add('active');
-    
+
     // Move to next image
     currentIndex = (currentIndex + 1) % imageBlocks.length;
   }
 
   // Show first image immediately
   showNextImage();
-  
+
   // Start crossfade cycle
   setInterval(showNextImage, 4000);
-  
+
   console.log('Hero crossfade animation initialized with', imageBlocks.length, 'images');
 }
 
